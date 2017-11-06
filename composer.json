@@ -1,5 +1,5 @@
 {
-    "name": "unisharp/laravel-audit",
+    "name": "unisharp/laravel-audit-trail2",
     "description": "Keep a change history for your models using laravel version 5.5.*",
     "type": "package",
     "license": "MIT",
