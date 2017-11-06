@@ -13,7 +13,7 @@ class AuditServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadMigrationsFrom(__DIR__.'migrations/2017_10_12_113624_create_audits_table.php');
+        $this->loadMigrationsFrom(__DIR__.'/migrations');
     }
 
     /**
