@@ -13,6 +13,10 @@ class AuditServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->publishes([
+            __DIR__.'/config/audit.php' => config_path('audit.php')
+        ], 'audit');
+
         $this->loadMigrationsFrom(__DIR__.'/migrations');
     }
 

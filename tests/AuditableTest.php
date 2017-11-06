@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
 class AuditableTest extends TestCase
@@ -31,6 +32,16 @@ class AuditableTest extends TestCase
 
         Auth::shouldReceive('user')->andReturn((object) ['name' => $this->user]);
         Request::shouldReceive('ip')->andReturn($this->ip);
+
+        Config::shouldReceive('get')->andReturnUsing(function ($key, $default = null) {
+            $configs = [
+                'audit.user' => 'name'
+            ];
+            if (array_key_exists($key, $configs)) {
+                return $configs[$key];
+            }
+            return $default;
+        });
 
         $this->model = new class extends Model {
             use Auditable;

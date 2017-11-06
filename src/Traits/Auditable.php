@@ -5,6 +5,7 @@ namespace Unisharp\AuditTrail2\Traits;
 use Unisharp\AuditTrail2\Audit;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Config;
 
 trait Auditable
 {
@@ -43,7 +44,7 @@ trait Auditable
     {
         $this->audits()->create([
             'action' => $action,
-            'user' => Auth::user() ? Auth::user()->name : null,
+            'user' => Auth::user() ? Auth::user()->{Config::get('audit.user')} : null,
             'ip' => Request::ip(),
         ]);
 
