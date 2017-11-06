@@ -40,12 +40,13 @@ trait Auditable
             ?? $this->audits->where('action', 'CREATE')->first();
     }
 
-    protected function audit($action)
+    public function audit($action, $log = null)
     {
         $this->audits()->create([
             'action' => $action,
             'user' => Auth::user() ? Auth::user()->{Config::get('audit.user')} : null,
-            'ip' => Request::ip(),
+            'log' => $log,
+            'ip' => Request::ip() ?: '127.0.0.1'
         ]);
 
         return $this;

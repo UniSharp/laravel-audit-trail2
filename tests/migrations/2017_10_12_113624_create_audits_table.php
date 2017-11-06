@@ -18,6 +18,7 @@ class CreateAuditsTable extends Migration
             $table->morphs('auditable');
             $table->string('action');
             $table->string('user')->index()->nullable();
+            $table->string('log')->nullable();
             $table->string('ip', 15);
             $table->timestamps();
         });

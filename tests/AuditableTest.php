@@ -135,4 +135,16 @@ class AuditableTest extends TestCase
             $this->model->creator
         );
     }
+
+    public function testLog()
+    {
+        $this->model->save();
+
+        $this->model->audit('LOG', $log = 'Add log');
+
+        $this->assertEquals(
+            Audit::whereAction('LOG')->first()->log,
+            $log
+        );
+    }
 }
