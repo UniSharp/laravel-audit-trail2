@@ -40,5 +40,6 @@
                 "Unisharp\\AuditTrail2\\AuditServiceProvider"
             ]
         }
-    }
+    },
+    "minimum-stability": "dev"
 }
