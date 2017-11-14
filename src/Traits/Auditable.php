@@ -11,17 +11,23 @@ trait Auditable
 {
     public static function bootAuditable()
     {
-        static::created(function ($auditable) {
-            $auditable->audit('CREATE');
-        });
+        if (Config::get('audit.auto')) {
+            if (isset(static::$audit_auto) && !static::$audit_auto) {
+                return;
+            }
 
-        static::updated(function ($auditable) {
-            $auditable->audit('UPDATE');
-        });
+            static::created(function ($auditable) {
+                $auditable->audit('CREATE');
+            });
 
-        static::deleted(function ($auditable) {
-            $auditable->audit('DELETE');
-        });
+            static::updated(function ($auditable) {
+                $auditable->audit('UPDATE');
+            });
+
+            static::deleted(function ($auditable) {
+                $auditable->audit('DELETE');
+            });
+        }
     }
 
     public function audits()
