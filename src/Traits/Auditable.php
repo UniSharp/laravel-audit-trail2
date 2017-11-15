@@ -12,7 +12,7 @@ trait Auditable
     public static function bootAuditable()
     {
         if (Config::get('audit.auto')) {
-            if (isset(static::$audit_auto) && !static::$audit_auto) {
+            if (isset(static::$auditAuto) && !static::$auditAuto) {
                 return;
             }
 
@@ -63,6 +63,6 @@ trait Auditable
 
     public function getInfo()
     {
-        return isset($this->audit_info) ? (array) $this->audit_info : [];
+        return isset($this->auditInfo) ? (array) $this->auditInfo : [];
     }
 }

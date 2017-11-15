@@ -154,7 +154,7 @@ class AuditableTest extends TestCase
         $model = new class extends Model {
             use Auditable;
 
-            public static $audit_auto = false;
+            public static $auditAuto = false;
             protected $fillable = ['name'];
         };
         $model->setTable($this->table);
@@ -173,7 +173,7 @@ class AuditableTest extends TestCase
         $model = new class extends Model {
             use Auditable;
 
-            protected $audit_info = 'name';
+            protected $auditInfo = 'name';
             protected $fillable = ['name'];
         };
         $model->setTable($this->table);
