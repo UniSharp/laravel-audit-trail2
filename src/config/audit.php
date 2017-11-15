@@ -5,5 +5,6 @@ return [
     // auth()->user()->name
     'user' => 'name',
 
+    // wheather autoly record model info when model was created, updated, deleted
     'auto' => true
 ];

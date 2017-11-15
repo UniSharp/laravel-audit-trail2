@@ -35,7 +35,8 @@ class AuditableTest extends TestCase
 
         Config::shouldReceive('get')->andReturnUsing(function ($key, $default = null) {
             $configs = [
-                'audit.user' => 'name'
+                'audit.user' => 'name',
+                'audit.auto' => true
             ];
             if (array_key_exists($key, $configs)) {
                 return $configs[$key];
@@ -144,6 +145,25 @@ class AuditableTest extends TestCase
 
         $this->assertEquals(
             Audit::whereAction('LOG')->first()->log,
+            $log
+        );
+    }
+
+    public function testModelNotAutoAudit()
+    {
+        $model = new class extends Model {
+            use Auditable;
+
+            public static $audit_auto = false;
+            protected $fillable = ['name'];
+        };
+        $model->setTable($this->table);
+
+        $model->save();
+        $model->audit('LOG', $log = 'Add log');
+
+        $this->assertEquals(
+            Audit::first()->log,
             $log
         );
     }
