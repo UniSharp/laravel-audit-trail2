@@ -48,13 +48,21 @@ trait Auditable
 
     public function audit($action, $log = null)
     {
+        $info = array_intersect_key($this->toArray(), array_flip($this->getInfo()));
+
         $this->audits()->create([
             'action' => $action,
             'user' => Auth::user() ? Auth::user()->{Config::get('audit.user')} : null,
             'log' => $log,
+            'info' => json_encode($info),
             'ip' => Request::ip() ?: '127.0.0.1'
         ]);
 
         return $this;
+    }
+
+    public function getInfo()
+    {
+        return isset($this->audit_info) ? (array) $this->audit_info : [];
     }
 }

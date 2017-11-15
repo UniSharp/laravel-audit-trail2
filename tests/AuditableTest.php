@@ -167,4 +167,23 @@ class AuditableTest extends TestCase
             $log
         );
     }
+
+    public function testInfo()
+    {
+        $model = new class extends Model {
+            use Auditable;
+
+            protected $audit_info = 'name';
+            protected $fillable = ['name'];
+        };
+        $model->setTable($this->table);
+        $model->name = $this->user;
+
+        $model->save();
+
+        $this->assertEquals(
+            Audit::first()->info,
+            json_encode(['name' => $this->user])
+        );
+    }
 }
