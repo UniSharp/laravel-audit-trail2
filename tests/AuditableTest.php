@@ -183,7 +183,7 @@ class AuditableTest extends TestCase
 
         $this->assertEquals(
             Audit::first()->info,
-            json_encode(['name' => $this->user])
+            ['name' => $this->user]
         );
     }
 }
